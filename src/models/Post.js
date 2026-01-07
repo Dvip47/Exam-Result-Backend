@@ -57,6 +57,45 @@ const postSchema = new mongoose.Schema(
         totalPosts: {
             type: Number,
         },
+        educationalQualification: {
+            type: String,
+            trim: true,
+        },
+        categoryWiseVacancy: [
+            {
+                category: String,
+                totalPosts: Number,
+            },
+        ],
+        postWiseVacancy: [
+            {
+                postName: String,
+                totalPosts: Number,
+            },
+        ],
+        physicalStandardTest: {
+            male: [
+                {
+                    category: String,
+                    height: String,
+                    chest: String,
+                },
+            ],
+            female: [
+                {
+                    category: String,
+                    height: String,
+                    minWeight: String,
+                },
+            ],
+        },
+        physicalEfficiencyTest: [
+            {
+                category: String,
+                distance: String,
+                time: String,
+            },
+        ],
 
         // Important dates
         importantDates: [

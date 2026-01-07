@@ -1,0 +1,17 @@
+{
+    "verbose": true,
+    "delay": "1000",
+    "ignore": [
+        "error.log",
+        "combined.log",
+        "uploads/*",
+        "*.test.js",
+        "node_modules"
+    ],
+    "watch": [
+        "src/**/*.js",
+        "src/**/*.json",
+        ".env"
+    ],
+    "ext": "js,json"
+}

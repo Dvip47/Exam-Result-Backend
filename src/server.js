@@ -16,6 +16,7 @@ const postRoutes = require('./routes/post.routes');
 const pageRoutes = require('./routes/page.routes');
 const mediaRoutes = require('./routes/media.routes');
 const dashboardRoutes = require('./routes/dashboard.routes');
+const aiRoutes = require('./routes/ai.routes');
 const publicCategoryRoutes = require('./routes/public/category.routes');
 const publicPostRoutes = require('./routes/public/post.routes');
 const publicPageRoutes = require('./routes/public/page.routes');
@@ -61,6 +62,7 @@ app.use('/api/admin/posts', postRoutes);
 app.use('/api/admin/pages', pageRoutes);
 app.use('/api/admin/media', mediaRoutes);
 app.use('/api/admin/dashboard', dashboardRoutes);
+app.use('/api/admin/ai', aiRoutes);
 app.use('/api/categories', publicCategoryRoutes);
 app.use('/api/posts', publicPostRoutes);
 app.use('/api/pages', publicPageRoutes);
@@ -90,6 +92,7 @@ process.on('unhandledRejection', (err) => {
 process.on('uncaughtException', (err) => {
     logger.error('Uncaught Exception:', err);
     console.error('UNCAUGHT EXCEPTION! Shutting down...');
+    console.error(err); // Show stack trace
     process.exit(1);
 });
 
