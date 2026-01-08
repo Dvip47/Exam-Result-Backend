@@ -24,6 +24,9 @@ const publicPageRoutes = require('./routes/public/page.routes');
 // Initialize Express app
 const app = express();
 
+// Trust proxy for Render/load balancers
+app.set('trust proxy', 1);
+
 // Connect to MongoDB
 connectDatabase();
 
