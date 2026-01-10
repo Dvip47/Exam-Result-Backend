@@ -17,7 +17,7 @@ class PostController {
     }
 
     /**
-     * Get post by ID (admin)
+     * Get post by ID (admin) 
      * GET /api/admin/posts/:id
      */
     async getPostById(req, res, next) {
