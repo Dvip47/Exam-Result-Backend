@@ -4,7 +4,8 @@ require('dotenv').config();
 async function testGemini() {
     console.log('Testing with Key:', process.env.GEMINI_API_KEY.substring(0, 10) + '...');
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
+    console.log("GEMINI_API_KEY exists:", !!process.env.GEMINI_API_KEY);
+    console.log("GEMINI_API_KEY:", process.env.GEMINI_API_KEY);
     // Try different model variations
     const models = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-pro"];
 
