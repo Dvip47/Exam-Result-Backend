@@ -53,6 +53,11 @@ class AIController {
                     5. The tone must be neutral and professional.
                     6. "status" MUST always be "Draft".
                     7. Avoid forbidden words/phrases: "official website", "government portal", "apply here officially".
+                    8. DATE FIELD RULE (MANDATORY):
+                       - For ALL date fields (postDate, lastDate, importantDates[].date):
+                         - Use a valid ISO date string in YYYY-MM-DD format
+                         - OR use null if the date is not officially announced
+                       - NEVER return placeholders like "Not Released Yet", "TBA", "Coming Soon", empty string, or "YYYY-MM-DD".
                     
                     OUTPUT SCHEMA (Strict JSON only):
                     {
@@ -173,9 +178,32 @@ class AIController {
         const forbiddenWords = ['official website', 'government portal', 'apply here officially', 'sarkari'];
 
         if (!data.basicInformation?.postTitle) errors.push('Missing Post Title');
-        if (data.basicInformation?.postTitle?.length > 70) errors.push('Title exceeds 70 characters (Validation limit)'); // Slight buffer for auto-correction
+        if (data.basicInformation?.postTitle?.length > 65) errors.push('Title exceeds 65 characters (Validation limit)'); // Slight buffer for auto-correction
 
-        if (data.seoSettings?.metaDescription?.length > 170) errors.push('Meta description exceeds 170 characters (Validation buffer)');
+        if (data.seoSettings?.metaDescription?.length > 160) errors.push('Meta description exceeds 160 characters (Validation buffer)');
+
+        const checkDate = (val, fieldName) => {
+            if (val === null) return;
+            const isoDateRegex = /^\d{4}-\d{2}-\d{2}$/;
+            if (typeof val !== 'string' || !isoDateRegex.test(val)) {
+                errors.push(`Invalid date format for ${fieldName}: "${val}". Must be YYYY-MM-DD or null.`);
+            }
+            const invalidPlaceholders = ['tba', 'coming soon', 'not released', 'notified soon', 'yyy-mm-dd'];
+            if (typeof val === 'string' && invalidPlaceholders.some(p => val.toLowerCase().includes(p))) {
+                errors.push(`Forbidden placeholder used in ${fieldName}: "${val}"`);
+            }
+        };
+
+        if (data.jobDetails) {
+            checkDate(data.jobDetails.postDate, 'postDate');
+            checkDate(data.jobDetails.lastDate, 'lastDate');
+        }
+
+        if (Array.isArray(data.importantDates)) {
+            data.importantDates.forEach((d, i) => {
+                checkDate(d.date, `importantDates[${i}].date`);
+            });
+        }
 
         const checkForbidden = (obj) => {
             const str = JSON.stringify(obj).toLowerCase();
@@ -225,7 +253,7 @@ class AIController {
             fullDescription: data.basicInformation.fullDescription,
             category: categoryId,
             organization: data.jobDetails.organization,
-            postDate: data.jobDetails.postDate ? new Date(data.jobDetails.postDate) : new Date(),
+            postDate: data.jobDetails.postDate ? new Date(data.jobDetails.postDate) : null,
             lastDate: data.jobDetails.lastDate ? new Date(data.jobDetails.lastDate) : null,
             ageLimit: data.jobDetails.ageLimit,
             fees: data.jobDetails.fees,
@@ -393,14 +421,19 @@ class AIController {
                 3. Description: Neutral, informational tone. NO promotional language ("Apply Now!", "Best Opportunity!").
                 4. Tone: Official, passive or neutral voice. "The commission has announced..."
                 5. Structure: One-topic-per-post.
+                6. DATE FIELD RULE (MANDATORY):
+                   - For ALL date fields (postDate, lastDate, importantDates[].date):
+                     - Use a valid ISO date string in YYYY-MM-DD format
+                     - OR use null if the date is not officially announced
+                   - NEVER return placeholders like "Not Released Yet", "TBA", "Coming Soon", empty string, or "YYYY-MM-DD".
 
                 OUTPUT SCHEMA (Return ONLY this JSON):
                 {
                   "basicInformation": {
-                    "postTitle": "SEO optimized title (50-65 chars)",
+                    "postTitle": "SEO optimized title (50-60 chars)",
                     "slug": "organization-exam-year-intent",
                     "category": "Latest Jobs / Admit Card / Result",
-                    "shortDescription": "Meta Description (140-160 chars). Include keywords naturally.",
+                    "shortDescription": "Meta Description (140-155 chars). Include keywords naturally.",
                     "fullDescription": "3-4 sentences summarizing the post. Who is hiring? For what? Total posts?."
                   },
                   "jobDetails": {
