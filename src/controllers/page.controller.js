@@ -1,5 +1,5 @@
 const pageService = require('../services/page.service');
-const ApiResponse = require('../utils/apiResponse');
+const ApiResponse = require('../utils/apiresponse');
 const logger = require('../utils/logger');
 
 class PageController {

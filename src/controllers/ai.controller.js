@@ -1,8 +1,8 @@
 const { GoogleGenerativeAI } = require('@google/generative-ai');
-const ApiResponse = require('../utils/apiResponse');
+const ApiResponse = require('../utils/apiresponse');
 const logger = require('../utils/logger');
-const Category = require('../models/Category');
-const Post = require('../models/Post');
+const Category = require('../models/category');
+const Post = require('../models/post');
 const { createSlug, generateUniqueSlug } = require('../utils/slugify');
 const { POST_STATUS } = require('../config/constants');
 

@@ -1,5 +1,6 @@
-const Media = require('../models/Media');
+const { uploadFile, deleteFile } = require('../utils/fileupload');
 const fs = require('fs').promises;
+const Media = require('../models/media');
 const path = require('path');
 
 class MediaService {

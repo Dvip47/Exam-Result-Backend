@@ -1,6 +1,9 @@
 require('dotenv').config();
+const User = require('../models/user');
+const Post = require('../models/post');
+const Category = require('../models/category');
+const Page = require('../models/page');
 const connectDatabase = require('../config/database');
-const User = require('../models/User');
 const logger = require('../utils/logger');
 
 /**

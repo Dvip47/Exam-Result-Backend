@@ -1,5 +1,5 @@
 const dashboardService = require('../services/dashboard.service');
-const ApiResponse = require('../utils/apiResponse');
+const ApiResponse = require('../utils/apiresponse');
 
 class DashboardController {
     async getStats(req, res, next) {

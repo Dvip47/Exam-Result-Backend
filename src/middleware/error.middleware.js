@@ -1,5 +1,5 @@
 const logger = require('../utils/logger');
-const ApiResponse = require('../utils/apiResponse');
+const ApiResponse = require('../utils/apiresponse');
 
 /**
  * Global error handler middleware

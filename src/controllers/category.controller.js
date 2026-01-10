@@ -1,5 +1,5 @@
 const categoryService = require('../services/category.service');
-const ApiResponse = require('../utils/apiResponse');
+const ApiResponse = require('../utils/apiresponse');
 const logger = require('../utils/logger');
 
 class CategoryController {

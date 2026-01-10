@@ -6,7 +6,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const connectDatabase = require('./config/database');
 const { errorHandler, notFoundHandler } = require('./middleware/error.middleware');
-const { apiLimiter } = require('./middleware/rateLimit.middleware');
+const { apiLimiter } = require('./middleware/ratelimit.middleware');
+const ApiResponse = require('./utils/apiresponse');
 const logger = require('./utils/logger');
 
 // Import routes
@@ -21,10 +22,9 @@ const publicCategoryRoutes = require('./routes/public/category.routes');
 const publicPostRoutes = require('./routes/public/post.routes');
 const publicPageRoutes = require('./routes/public/page.routes');
 
-// Initialize Express app
 const app = express();
 
-// Trust proxy for Render/load balancers
+// Trust proxy (must be before rate limits)
 app.set('trust proxy', 1);
 
 // Connect to MongoDB

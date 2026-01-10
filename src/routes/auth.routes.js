@@ -4,7 +4,7 @@ const authController = require('../controllers/auth.controller');
 const { authenticateToken, authenticateRefreshToken } = require('../middleware/auth.middleware');
 const { registerValidator, loginValidator, refreshTokenValidator } = require('../validators/auth.validator');
 const validate = require('../middleware/validation.middleware');
-const { authLimiter } = require('../middleware/rateLimit.middleware');
+const { authLimiter } = require('../middleware/ratelimit.middleware');
 
 /**
  * @route   POST /api/auth/register

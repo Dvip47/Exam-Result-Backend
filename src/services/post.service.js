@@ -1,5 +1,5 @@
-const Post = require('../models/Post');
-const Category = require('../models/Category');
+const Post = require('../models/post');
+const Category = require('../models/category');
 const { createSlug, generateUniqueSlug } = require('../utils/slugify');
 const { POST_STATUS } = require('../config/constants');
 

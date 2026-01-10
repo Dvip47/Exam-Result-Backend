@@ -1,4 +1,4 @@
-const Page = require('../models/Page');
+const Page = require('../models/page');
 const { createSlug, generateUniqueSlug } = require('../utils/slugify');
 
 class PageService {

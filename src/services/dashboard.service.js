@@ -1,5 +1,6 @@
-const Post = require('../models/Post');
-const Category = require('../models/Category');
+const Post = require('../models/post');
+const Category = require('../models/category');
+const User = require('../models/user');
 const { POST_STATUS } = require('../config/constants');
 
 class DashboardService {

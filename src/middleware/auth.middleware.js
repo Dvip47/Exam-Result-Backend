@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET } = require('../config/auth');
-const User = require('../models/User');
-const ApiResponse = require('../utils/apiResponse');
+const User = require('../models/user');
+const ApiResponse = require('../utils/apiresponse');
 const logger = require('../utils/logger');
 
 /**

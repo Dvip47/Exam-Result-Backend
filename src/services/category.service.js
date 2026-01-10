@@ -1,4 +1,4 @@
-const Category = require('../models/Category');
+const Category = require('../models/category');
 const { createSlug, generateUniqueSlug } = require('../utils/slugify');
 
 class CategoryService {
