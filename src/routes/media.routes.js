@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const mediaController = require('../controllers/media.controller');
 const { authenticateToken, authorizeRole } = require('../middleware/auth.middleware');
-const upload = require('../utils/fileUpload');
-const { uploadLimiter } = require('../middleware/rateLimit.middleware');
+// const upload = require('../utils/fileUpload');
+const upload = require('../utils/fileupload')
+const { uploadLimiter } = require('../middleware/ratelimit.middleware');
 const { USER_ROLES } = require('../config/constants');
 
 /**
