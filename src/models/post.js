@@ -122,6 +122,16 @@ const postSchema = new mongoose.Schema(
             type: String,
             trim: true,
         },
+        availabilityNote: {
+            type: String,
+            trim: true,
+            default: null,
+        },
+        primaryActionLink: {
+            type: String,
+            trim: true,
+            default: null,
+        },
 
         // Status
         status: {

@@ -59,6 +59,20 @@ class AIController {
                          - Use a valid ISO date string in YYYY-MM-DD format
                          - OR use null if the date is not officially announced
                        - NEVER return placeholders like "Not Released Yet", "TBA", "Coming Soon", empty string, or "YYYY-MM-DD".
+
+                TYPE-SPECIFIC RULES:
+                 1. latest-jobs:
+                    - Generate: primaryActionLink (Mapping to Apply Online), fees, ageLimit.
+                    - Set availabilityNote = null.
+                 2. admit-cards:
+                    - Generate: primaryActionLink (Admit Card Download URL), availabilityNote.
+                    - Set fees = null, ageLimit = null.
+                 3. results:
+                    - Generate: primaryActionLink (Result Check URL), availabilityNote.
+                    - Set fees = null, ageLimit = null.
+                 4. Others (Answer Key, Documents, etc.):
+                    - Infer intent and set primaryActionLink accordingly.
+
                     
                     OUTPUT SCHEMA (Strict JSON only):
                     {
@@ -101,8 +115,9 @@ class AIController {
                         { "label": "Event Label", "date": "YYYY-MM-DD" }
                       ],
                       "linksAndStatus": {
-                        "applyOnlineLink": "URL",
+                        "primaryActionLink": "URL (Intent-based)",
                         "notificationPdfUrl": "URL",
+                        "availabilityNote": "Message for Admit Card/Result only (e.g. 'Admit Card will be released soon')",
                         "status": "Draft"
                       },
                       "seoSettings": {
@@ -283,8 +298,10 @@ class AIController {
                 label: d.label,
                 date: d.date ? new Date(d.date) : null
             })),
-            applyLink: data.linksAndStatus.applyOnlineLink,
+            applyLink: data.linksAndStatus.primaryActionLink, // Map to applyLink for backward compat
+            primaryActionLink: data.linksAndStatus.primaryActionLink,
             notificationPdf: data.linksAndStatus.notificationPdfUrl,
+            availabilityNote: data.linksAndStatus.availabilityNote || null,
             status: POST_STATUS.DRAFT,
             metaTitle: data.seoSettings.metaTitle,
             metaDescription: data.seoSettings.metaDescription
@@ -465,8 +482,9 @@ class AIController {
                      { "label": "Exam Date", "date": "YYYY-MM-DD" }
                   ],
                   "linksAndStatus": {
-                    "applyOnlineLink": "Official Apply URL",
-                    "notificationPdfUrl": "Official PDF URL (Direct Link)",
+                    "primaryActionLink": "Official URL (Apply/Result/Admit Card)",
+                    "notificationPdfUrl": "Official PDF URL",
+                    "availabilityNote": "Short status note for non-job posts",
                     "status": "Draft"
                   },
                   "seoSettings": {

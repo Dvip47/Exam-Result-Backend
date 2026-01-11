@@ -29,6 +29,10 @@ const categorySchema = new mongoose.Schema(
             type: Boolean,
             default: true,
         },
+        primaryActionLabel: {
+            type: String,
+            default: "View Details",
+        },
         deletedAt: {
             type: Date,
             default: null,

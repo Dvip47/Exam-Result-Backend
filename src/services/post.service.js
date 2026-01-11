@@ -88,9 +88,14 @@ class PostService {
             return !!existing;
         });
 
-        // Set publishedAt if status is published
-        if (data.status === POST_STATUS.PUBLISHED && !data.publishedAt) {
-            data.publishedAt = new Date();
+        // Determine post type and enforce field rules
+        const categorySlug = category.slug;
+        if (categorySlug === 'latest-jobs') {
+            data.availabilityNote = null;
+        } else if (['admit-cards', 'results'].includes(categorySlug)) {
+            data.fees = null;
+            data.ageLimit = null;
+            // fees, ageLimit are strings in schema.
         }
 
         const post = new Post({
@@ -130,9 +135,15 @@ class PostService {
             }
         }
 
-        // Set publishedAt when status changes to published
-        if (data.status === POST_STATUS.PUBLISHED && !post.publishedAt) {
-            data.publishedAt = new Date();
+        // Determine post type and enforce field rules
+        const currentCategory = await Category.findById(data.category || post.category._id);
+        const categorySlug = currentCategory.slug;
+
+        if (categorySlug === 'latest-jobs') {
+            data.availabilityNote = null;
+        } else if (['admit-cards', 'results'].includes(categorySlug)) {
+            data.fees = null;
+            data.ageLimit = null;
         }
 
         Object.assign(post, data);
