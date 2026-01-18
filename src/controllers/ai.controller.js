@@ -9,8 +9,7 @@ const { POST_STATUS } = require('../config/constants');
 const XLSX = require('xlsx');
 const fs = require('fs');
 const path = require('path');
-console.log("GEMINI_API_KEY exists:", !!process.env.GEMINI_API_KEY);
-console.log("GEMINI_API_KEY:", process.env.GEMINI_API_KEY);
+
 class AIController {
     constructor() {
         this.genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);

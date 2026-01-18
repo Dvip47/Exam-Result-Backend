@@ -3,8 +3,7 @@ require('dotenv').config();
 
 async function listAllModels() {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    console.log("GEMINI_API_KEY exists:", !!process.env.GEMINI_API_KEY);
-    console.log("GEMINI_API_KEY:", process.env.GEMINI_API_KEY);
+
     try {
         // Correct way to list models in latest SDK
         // Actually, listModels is often problematic in some node environments
