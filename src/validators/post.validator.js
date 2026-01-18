@@ -61,11 +61,11 @@ const createPostValidator = [
         .isArray()
         .withMessage('Important dates must be an array'),
 
-    body('applyLink')
+    body('primaryActionLink')
         .optional()
         .trim()
         .isURL()
-        .withMessage('Apply link must be a valid URL'),
+        .withMessage('Primary action link must be a valid URL'),
 
     body('status')
         .optional()

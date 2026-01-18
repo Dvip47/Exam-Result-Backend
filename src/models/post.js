@@ -106,10 +106,7 @@ const postSchema = new mongoose.Schema(
         ],
 
         // Links
-        applyLink: {
-            type: String,
-            trim: true,
-        },
+        // Links
         notificationPdf: {
             type: String,
             trim: true,

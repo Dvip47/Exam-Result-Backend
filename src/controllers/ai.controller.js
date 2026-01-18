@@ -298,7 +298,6 @@ class AIController {
                 label: d.label,
                 date: d.date ? new Date(d.date) : null
             })),
-            applyLink: data.linksAndStatus.primaryActionLink, // Map to applyLink for backward compat
             primaryActionLink: data.linksAndStatus.primaryActionLink,
             notificationPdf: data.linksAndStatus.notificationPdfUrl,
             availabilityNote: data.linksAndStatus.availabilityNote || null,
