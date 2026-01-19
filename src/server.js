@@ -78,10 +78,14 @@ app.use(errorHandler);
 
 // Start server
 const PORT = process.env.PORT || 5000;
+
+// Initialize Daily Agent
+require('./cron/dailyAgentRunner').init();
+
 app.listen(PORT, () => {
     logger.info(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
     console.log(`🚀 Server started on http://localhost:${PORT}`);
-    console.log(`📝 Health check: http://localhost:${PORT}/health`);
+    console.log(`📝 Health checkk: http://localhost:${PORT}/health`);
 });
 
 // Handle unhandled promise rejections

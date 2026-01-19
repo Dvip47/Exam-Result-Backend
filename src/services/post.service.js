@@ -8,7 +8,7 @@ class PostService {
      * Get all posts with filters (admin)
      */
     async getAllPosts(filters = {}) {
-        const { category, status, search, page = 1, limit = 20 } = filters;
+        const { category, status, search, page = 1, limit = 100 } = filters;
 
         const query = { deletedAt: null };
 

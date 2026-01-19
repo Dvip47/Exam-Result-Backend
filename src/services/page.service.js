@@ -6,6 +6,8 @@ class PageService {
      * Get all pages (admin)
      */
     async getAllPages(includeInactive = false) {
+        console.log("includeInactive", includeInactive);
+
         const query = includeInactive ? {} : { isActive: true, deletedAt: null };
         return Page.find(query).sort({ createdAt: -1 });
     }

@@ -178,6 +178,29 @@ const postSchema = new mongoose.Schema(
             type: Date,
             default: null,
         },
+
+        // Automation Audit Fields
+        automationDetails: {
+            discoveredVia: String,
+            sourceType: String,
+            verifiedFrom: String,
+            officialPdfUrl: String,
+            confidenceScore: Number,
+            completenessScore: Number,
+            verificationTimestamp: Date,
+            contentGeneratedAt: Date,
+            automationVersion: String,
+            aiModelUsed: String,
+            automationStatus: {
+                type: String,
+                enum: ['pending', 'completed', 'failed'],
+                default: 'pending'
+            },
+            idempotencyKey: {
+                type: String,
+                index: true
+            }
+        },
     },
     {
         timestamps: true,
