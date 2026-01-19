@@ -36,7 +36,7 @@ class ValidationService {
         // 2. Compute Completeness Score (0-100)
         let filledFields = 0;
         const criticalFields = ['title', 'shortDescription', 'category', 'postDate', 'lastDate', 'primaryActionLink'];
-        const secondaryFields = ['fees', 'ageLimit', 'educationalQualification', 'totalPosts'];
+        const secondaryFields = ['fees', 'ageLimit', 'educationalQualification', 'totalPosts', 'availabilityNote', 'physicalStandardTest', 'physicalEfficiencyTest'];
 
         criticalFields.forEach(f => {
             if (postData[f]) filledFields += 15;

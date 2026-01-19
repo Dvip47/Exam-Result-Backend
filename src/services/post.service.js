@@ -88,16 +88,6 @@ class PostService {
             return !!existing;
         });
 
-        // Determine post type and enforce field rules
-        const categorySlug = category.slug;
-        if (categorySlug === 'latest-jobs') {
-            data.availabilityNote = null;
-        } else if (['admit-cards', 'results'].includes(categorySlug)) {
-            data.fees = null;
-            data.ageLimit = null;
-            // fees, ageLimit are strings in schema.
-        }
-
         const post = new Post({
             ...data,
             slug,
@@ -133,17 +123,6 @@ class PostService {
             if (!category || category.isDeleted()) {
                 throw new Error('Category not found');
             }
-        }
-
-        // Determine post type and enforce field rules
-        const currentCategory = await Category.findById(data.category || post.category._id);
-        const categorySlug = currentCategory.slug;
-
-        if (categorySlug === 'latest-jobs') {
-            data.availabilityNote = null;
-        } else if (['admit-cards', 'results'].includes(categorySlug)) {
-            data.fees = null;
-            data.ageLimit = null;
         }
 
         Object.assign(post, data);

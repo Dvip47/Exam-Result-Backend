@@ -61,6 +61,10 @@ class GenerationService {
            - metaTitle length ≤ 65 characters.
            - metaDescription length ≤ 150 characters.
            - If metaTitle exceeds 65 chars or metaDescription exceeds 150 chars, regenerate until limits are satisfied.
+        6. **Availability & Standards**: 
+           - Extract "Availability Notes" (e.g., "Admit card expected in April") if found and set to \`availabilityNote\`.
+           - Extract Physical Standards (Height, Chest, Weight) into \`physicalStandardTest\`.
+           - Extract Physical Efficiency (Running, etc.) into \`physicalEfficiencyTest\`.
         
         REQUIRED JSON STRUCTURE:
         {
@@ -82,6 +86,12 @@ class GenerationService {
           "importantDates": [ { "label": "Application Begin", "date": "YYYY-MM-DD" }, { "label": "Last Date", "date": "YYYY-MM-DD" } ],
           "notificationPdf": "URL from input",
           "primaryActionLink": "URL from input",
+          "availabilityNote": "String (e.g. Card out on 15th)",
+          "physicalStandardTest": {
+             "male": [ { "category": "General", "height": "170 cm", "chest": "80-85 cm" } ],
+             "female": [ { "category": "General", "height": "157 cm", "minWeight": "45 kg" } ]
+          },
+          "physicalEfficiencyTest": [ { "category": "Running", "distance": "5km", "time": "24 mins" } ],
           "metaTitle": "SEO Title (≤ 65 chars)",
           "metaDescription": "SEO Description (≤ 150 chars)"
         }
